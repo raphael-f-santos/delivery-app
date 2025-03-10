@@ -4,13 +4,13 @@ Este projeto implementa um sistema de mensageria para um serviço de delivery, u
 
 ## Tecnologias Utilizadas
 
-Java 17
+- Java 17
 
-Spring Boot (Spring Data JPA & Spring AMQP)
+- Spring Boot (Spring Data JPA & Spring AMQP)
 
-MySQL
+- MySQL
 
-Maven
+- Maven
 
 ## Estrutura do Projeto
 
