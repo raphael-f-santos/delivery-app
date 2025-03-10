@@ -1,4 +1,4 @@
-# Delivery App #
+# Delivery App 
 
 Este projeto implementa um sistema de mensageria para um serviço de delivery, utilizando Spring Boot e RabbitMQ para comunicação assíncrona entre microsserviços.
 
@@ -14,19 +14,19 @@ Este projeto implementa um sistema de mensageria para um serviço de delivery, u
 
 ## Estrutura do Projeto
 
-O sistema é composto por dois microsserviços principais:
+- O sistema é composto por dois microsserviços principais:
 
 ### User-MS
 
-Gerencia usuários e pedidos.
+- Gerencia usuários e pedidos.
 
-Publica mensagens de novos pedidos para o Eatery-MS via RabbitMQ.
+- Publica mensagens de novos pedidos para o Eatery-MS via RabbitMQ.
 
 ### Eatery-MS
 
-Recebe mensagens do User-MS e salva os pedidos no banco de dados.
+- Recebe mensagens do User-MS e salva os pedidos no banco de dados.
 
-Confirma o recebimento do pedido.
+- Confirma o recebimento do pedido.
 
 
 ## Melhorias Futuras
