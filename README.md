@@ -1,4 +1,4 @@
-# Delivery App
+# Delivery App #
 
 Este projeto implementa um sistema de mensageria para um serviço de delivery, utilizando Spring Boot e RabbitMQ para comunicação assíncrona entre microsserviços.
 
