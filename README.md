@@ -12,6 +12,8 @@ Este projeto implementa um sistema de mensageria para um serviço de delivery, u
 
 - Maven
 
+- RabbitMQ
+
 ## Estrutura do Projeto
 
 - O sistema é composto por dois microsserviços principais:
