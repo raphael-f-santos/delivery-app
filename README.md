@@ -31,7 +31,4 @@ Este projeto implementa um sistema de mensageria para um serviço de delivery, u
 - Confirma o recebimento do pedido.
 
 
-## Melhorias Futuras
-
-Implementação de WebSocket para atualização em tempo real do status do pedido.
 
