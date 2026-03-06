@@ -1,0 +1,60 @@
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: delivery-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - delivery-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: delivery-rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - delivery-network
+
+  user-ms:
+    build: ./user-ms
+    container_name: user-ms
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/users
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_RABBITMQ_HOST: rabbitmq
+    restart: always
+    networks:
+      - delivery-network
+
+  eatery-ms:
+    build: ./eatery-ms
+    container_name: eatery-ms
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+      - rabbitmq
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/eateries
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_RABBITMQ_HOST: rabbitmq
+    restart: always
+    networks:
+      - delivery-network
+
+networks:
+  delivery-network:
+    driver: bridge

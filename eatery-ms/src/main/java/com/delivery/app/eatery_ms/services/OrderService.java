@@ -1,36 +1,35 @@
 package com.delivery.app.eatery_ms.services;
 
-import com.delivery.app.eatery_ms.dtos.OrderRecordDto;
+import com.delivery.app.eatery_ms.dtos.order.OrderRecordDTO;
+import com.delivery.app.eatery_ms.enums.OrderStatus;
 import com.delivery.app.eatery_ms.models.Order;
-import com.delivery.app.eatery_ms.models.User;
+import com.delivery.app.eatery_ms.producers.EateryProducer;
 import com.delivery.app.eatery_ms.repositories.OrderRepository;
-import com.delivery.app.eatery_ms.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, EateryProducer eateryProducer) {
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
+        this.eateryProducer = eateryProducer;
     }
 
-    public void saveOrder(OrderRecordDto orderRecordDto){
+    private final EateryProducer eateryProducer;
 
-        User user = userRepository.findByName(orderRecordDto.user().name()).orElseGet(
-                () -> userRepository.save(new User(orderRecordDto.user().name(), orderRecordDto.user().address()))
-        );
+    public void saveOrder(OrderRecordDTO orderRecordDto){
 
         Order order = new Order(
                 orderRecordDto.menu(),
                 orderRecordDto.quantity(),
                 orderRecordDto.status(),
-                user
+                orderRecordDto.userId()
         );
 
-        orderRepository.save(order);
+        Order saved = orderRepository.save(order);
+
+        eateryProducer.notifyUserMs(saved);
     }
 }

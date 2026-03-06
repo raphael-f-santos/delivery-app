@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "TB_ORDERS")
 public class Order {
@@ -25,16 +27,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
-    public Order(Menu menu, int quantity, OrderStatus status, User user) {
+    public Order(Menu menu, int quantity, OrderStatus status, Long userId) {
         this.menu = menu;
         this.quantity = quantity;
         this.status = status;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Order() {
@@ -73,11 +72,11 @@ public class Order {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

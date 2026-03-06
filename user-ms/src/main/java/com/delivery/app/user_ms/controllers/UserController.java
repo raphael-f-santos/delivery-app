@@ -1,7 +1,7 @@
 package com.delivery.app.user_ms.controllers;
 
-import com.delivery.app.user_ms.dtos.OrderDto;
-import com.delivery.app.user_ms.dtos.UserRecordDto;
+import com.delivery.app.user_ms.dtos.order.OrderRecordDTO;
+import com.delivery.app.user_ms.dtos.user.UserRecordDto;
 import com.delivery.app.user_ms.models.User;
 import com.delivery.app.user_ms.services.UserService;
 import jakarta.validation.Valid;
@@ -29,9 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/send-order")
-    public ResponseEntity<OrderDto> sendOrder(@RequestBody @Valid OrderDto orderDto) {
-        userService.sendOrder(orderDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
+    public ResponseEntity<OrderRecordDTO> sendOrder(@RequestBody @Valid OrderRecordDTO orderRecordDto) {
+        userService.sendOrder(orderRecordDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderRecordDto);
     }
-
 }
