@@ -4,4 +4,5 @@ public record CodeReceivedMessageDTO(
         Long userId,
         Long orderId,
         int code
-) { }
+) {
+}

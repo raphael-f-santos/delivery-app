@@ -11,13 +11,12 @@ import org.springframework.stereotype.Service;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final EateryProducer eateryProducer;
 
     public OrderService(OrderRepository orderRepository, EateryProducer eateryProducer) {
         this.orderRepository = orderRepository;
         this.eateryProducer = eateryProducer;
     }
-
-    private final EateryProducer eateryProducer;
 
     public void saveOrder(OrderRecordDTO orderRecordDto){
 

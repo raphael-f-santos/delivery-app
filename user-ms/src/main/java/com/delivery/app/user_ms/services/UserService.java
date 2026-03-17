@@ -1,7 +1,6 @@
 package com.delivery.app.user_ms.services;
 
 import com.delivery.app.user_ms.configs.code.CodeGenerator;
-import com.delivery.app.user_ms.dtos.code.CodeReceivedMessageDTO;
 import com.delivery.app.user_ms.dtos.order.OrderMessageDTO;
 import com.delivery.app.user_ms.dtos.order.OrderReceivedMessageDTO;
 import com.delivery.app.user_ms.dtos.order.OrderRecordDTO;
@@ -47,23 +46,6 @@ public class UserService {
     }
 
     @Transactional
-    public void verifyCodeInfo(CodeReceivedMessageDTO message) {
-
-        Code code = codeRepository
-                .findByUserIdAndOrderIdAndCodeAndStatus(
-                        message.userId(),
-                        message.orderId(),
-                        message.code(),
-                        CodeStatus.CONFIRMED
-                )
-                .orElseThrow(() ->
-                        new IllegalStateException("Invalid code")
-                );
-
-        code.setStatus(CodeStatus.USED);
-    }
-
-    @Transactional
     public void orderMessageReceiver(OrderReceivedMessageDTO message) {
 
         Code code = codeRepository
@@ -80,8 +62,8 @@ public class UserService {
         codeRepository.save(code);
     }
 
-    public User save(User user){
-        return userRepository.save(user);
+    public void save(User user){
+        userRepository.save(user);
     }
 
     public void sendOrder(OrderRecordDTO orderDto){

@@ -7,21 +7,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@SuppressWarnings("unused")
 @Configuration
 public class RabbitMQConfig {
 
     @Value("${broker.queue.eatery.name}")
-    private String queue;
+    private String eateryQueueName;
 
     @Bean
-    public Queue queue() {
-        return new Queue(queue, true);
+    public Queue eateryQueue() {
+        return new Queue(eateryQueueName, true);
+    }
+
+    @Value("${broker.queue.code.validated.name}")
+    private String codeQueueName;
+
+    @Bean
+    public Queue codeQueue() {
+        return new Queue(codeQueueName, true);
     }
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return new Jackson2JsonMessageConverter(objectMapper);
+        return new Jackson2JsonMessageConverter();
     }
 }

@@ -20,7 +20,7 @@ public class CodeService {
     }
 
     @Transactional
-    public void validateAndUseCode(CodeReceivedMessageDTO message) {
+    public void codeMessageReceiver(CodeReceivedMessageDTO message) {
 
         Code code = codeRepository
                 .findByUserIdAndOrderIdAndCodeAndStatus(

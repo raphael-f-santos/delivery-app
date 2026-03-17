@@ -18,7 +18,7 @@ public class EateryProducer {
     private String notifyUserMsRoutingKey;
 
     @Value("${broker.queue.code.validated.name}")
-    private String verifyCodeRoutingKey;
+    private String codeNotifyUserMsRoutingKey;
 
     public void notifyUserMs(Order order) {
 
@@ -35,11 +35,11 @@ public class EateryProducer {
         );
     }
 
-    public void verifyCodeInfo(CodeMessageDTO codeMessageDto) {
+    public void codeNotifyUserMs(CodeMessageDTO codeMessageDTO) {
         rabbitTemplate.convertAndSend(
                 "",
-                verifyCodeRoutingKey,
-                codeMessageDto
+                codeNotifyUserMsRoutingKey,
+                codeMessageDTO
         );
     }
 }

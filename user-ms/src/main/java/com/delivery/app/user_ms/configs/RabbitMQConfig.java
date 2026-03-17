@@ -11,16 +11,15 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     @Value("${broker.queue.user.name}")
-    private String queue;
+    private String userQueueName;
 
     @Bean
-    public Queue queue() {
-        return new Queue(queue, true);
+    public Queue userQueue() {
+        return new Queue(userQueueName, true);
     }
 
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return new Jackson2JsonMessageConverter(objectMapper);
+        return new Jackson2JsonMessageConverter();
     }
 }

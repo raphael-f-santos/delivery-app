@@ -31,6 +31,8 @@ public class EateryConsumer {
     @Transactional
     public void handleCodeValidated(CodeValidatedDTO message) {
 
+        System.out.println(message);
+
         Order order = orderRepository
                 .findById(message.orderId())
                 .orElseThrow();

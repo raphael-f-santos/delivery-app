@@ -10,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -21,16 +23,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<User> saveUser(@RequestBody @Valid UserRecordDto userRecordDto){
+    @PostMapping("/create-user")
+    public ResponseEntity<String> saveUser(@RequestBody @Valid UserRecordDto userRecordDto){
         var user = new User();
         BeanUtils.copyProperties(userRecordDto, user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+        userService.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created");
     }
 
     @PostMapping("/send-order")
-    public ResponseEntity<OrderRecordDTO> sendOrder(@RequestBody @Valid OrderRecordDTO orderRecordDto) {
+    public ResponseEntity<String> sendOrder(@RequestBody @Valid OrderRecordDTO orderRecordDto) {
         userService.sendOrder(orderRecordDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderRecordDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order sent for processing");
     }
 }

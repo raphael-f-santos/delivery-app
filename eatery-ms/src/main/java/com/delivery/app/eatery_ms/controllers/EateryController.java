@@ -20,7 +20,7 @@ public class EateryController {
 
     @PostMapping("/code")
     public ResponseEntity<CodeMessageDTO> confirmOrder(@RequestBody @Valid CodeMessageDTO codeMessageDto){
-        eateryProducer.verifyCodeInfo(codeMessageDto);
+        eateryProducer.codeNotifyUserMs(codeMessageDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(codeMessageDto);
     }
 }
